@@ -37,7 +37,7 @@ else:
 # Check if the password has at least one special character
 # isalnum() means: letter or number
 # "not" means we are looking for something that is NOT a letter or number
-if any(char.isalnum() and not char.isspace() for char in password):
+if any(not char.isalnum() and not char.isspace() for char in password):
     score += 1
 else:
     feedback.append("Use at least one special character.")
@@ -55,7 +55,7 @@ if password.lower() in common_passwords:
 
 if score <= 2:
     strength = "weak"
-elif score >= 4:
+elif score <= 4:
     strength = "medium"
 elif score == 5:
     strength = "strong"
