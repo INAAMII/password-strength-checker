@@ -5,6 +5,20 @@ password = input("Enter a password :")
 score = 0
 feedback = []
 
+# small list for common passwords
+common_passwords = [
+    "password", "123456", "123456789", "12345678", "12345",
+    "111111", "1234567", "sunshine", "qwerty", "iloveyou",
+    "princess", "admin", "welcome", "666666", "abc123",
+    "password1", "123123", "000000", "monkey", "charlie"
+]
+
+
+if password.lower() in common_passwords:
+    score = 0
+    feedback.append("Password is in the top 20 common passwords, try something else.")
+
+
 #Check lenghth of the password
 if len(password) >= 12:
     score += 2
@@ -46,12 +60,8 @@ if any(char.isspace() for char in password):
     score = 0
     feedback.append("Password should not contain spaces.")
 
-# small list for common passwords
-common_passwords = ["password", "123456", "qwerty", "abc123", "letmein", "monkey", "dragon", "111111", "baseball", "iloveyou"]
 
-if password.lower() in common_passwords:
-    score = 0
-    feedback.append("Password is very common, try something else.")
+
 
 if score <= 2:
     strength = "weak"
@@ -63,9 +73,12 @@ else:
     strength = "very strong"
 
 print("\nPassword strength:", strength)
-print("Score:", score, "/ 6")
+#print("Score:", score, "/ 6")
 
-if feedback:
+if not feedback:
+    print("SUCCESS: Password is strong and meets all requirements!")
+else:
+    print("REJECTED: Password does not meet security requirements.")
     print("\nRecommendations:")
     for item in feedback:
         print("-", item)
